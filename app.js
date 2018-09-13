@@ -60,48 +60,36 @@ app.get("/",function(req,res){
 });
 
 app.post("/signup",function(req,res){
-//     firebase.database().ref('users/').set({
-//     username: "tanveer",
-//     email: "tanveermohd797@gmail.com",
-    
-//   }).then(function(){
-//       console.log("success");
-//   }).catch(function(e){
-//       console.log(e);
-//   });
-  
-  var email = req.body.email;
-    var password = req.body.password;
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-    // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(errorCode,errorMessage);
-    });
-    
-//   gracehop: {
-//     date_of_birth: "December 9, 1906",
-//     full_name: "Grace Hopper"
-//   },
-//   adish: {
-//     date_of_birth: "December 9, 1998",
-//     full_name: "Adish Irfan"
-//   }
-// });
-});
-
-app.listen(process.env.PORT,process.env.IP,function(){
-    
-    console.log("Server is running !");
-});
-
-app.post("/login",function(req,res){
     var email = req.body.email;
     var password = req.body.password;
-    firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(function(){
-            res.send("Login Successful !");
-            var transporter = nodemailer.createTransport({
+    var username = req.body.username;
+    
+    
+    var usersRef = ref.child("users");
+usersRef.set({
+    
+    username: username,
+    email: email,
+    passowrd: password
+  
+})
+    var usersRef = ref.child("userInformation");
+usersRef.set({
+    
+    username: username,
+    email: email,
+    passowrd: password
+  
+}).then(function(){
+      console.log("success");
+      res.send("You have registered Successfully !! ");
+      firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // ...
+});
+      var transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'demoapp87@gmail.com',
@@ -109,18 +97,14 @@ app.post("/login",function(req,res){
   }
 });
 
-var usersRef = ref.child("users");
-usersRef.set({
-  alanisawesome: {
-    username:req.body.email
-  }
-});
+var str = "Dear " + username + " ,Welcome to our app";
 
 var mailOptions = {
+    
   from: 'demoapp87@gmail.com',
   to: email,
-  subject: 'Dear <username>, Welcome to our app',
-  text: 'That was easy!'
+  subject: str,
+  text: str
 };
 
 transporter.sendMail(mailOptions, function(error, info){
@@ -138,8 +122,20 @@ transporter.sendMail(mailOptions, function(error, info){
         var errorMessage = error.message;
         console.log(errorCode,errorMessage);
         });
-        
-        
-        
-       
+      
+  });
+
+app.listen(process.env.PORT,process.env.IP,function(){
+    
+    console.log("Server is running !");
 });
+
+app.post("/login",function(req,res){
+    var email = req.body.email;
+    var password = req.body.password;
+    firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(function(){
+            res.send("Login Successful !");
+            });
+            
+});            
