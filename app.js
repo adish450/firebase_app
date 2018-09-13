@@ -1,6 +1,6 @@
 var express = require("express"),
     admin = require("firebase-admin"),
-    // firebase = require("firebase"),
+    firebase = require("firebase"),
     app = express(),
     bodyParser = require("body-parser"),
     morgan = require("morgan"),
@@ -49,11 +49,6 @@ app.set("view engine", "html");
 app.use(express.static((__dirname)));
 app.use(bodyParser());
 
-
-// Get a reference to the database service
-// var database = firebase.database();
-// var firebase = require('firebase');
-// var firebaseui = require('firebaseui');
 
 app.get("/",function(req,res){
     res.render("index.html");
