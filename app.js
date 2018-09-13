@@ -1,6 +1,6 @@
 var express = require("express"),
     admin = require("firebase-admin"),
-    firebase = require("firebase"),
+    // firebase = require("firebase"),
     app = express(),
     bodyParser = require("body-parser"),
     morgan = require("morgan"),
@@ -20,15 +20,15 @@ app.use(morgan('dev'));
 // Initialize Firebase
 // TODO: Replace with your project's customized code snippet
 // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBN51fYey0mj9eFli3ykltOpoyIEt4_RDw",
-    authDomain: "fir-app-fb853.firebaseapp.com",
-    databaseURL: "https://fir-app-fb853.firebaseio.com",
-    projectId: "fir-app-fb853",
-    storageBucket: "fir-app-fb853.appspot.com",
-    messagingSenderId: "203748928249"
-  };
-  firebase.initializeApp(config);
+//   var config = {
+//     apiKey: "AIzaSyBN51fYey0mj9eFli3ykltOpoyIEt4_RDw",
+//     authDomain: "fir-app-fb853.firebaseapp.com",
+//     databaseURL: "https://fir-app-fb853.firebaseio.com",
+//     projectId: "fir-app-fb853",
+//     storageBucket: "fir-app-fb853.appspot.com",
+//     messagingSenderId: "203748928249"
+//   };
+//   firebase.initializeApp(config);
 
 
 var serviceAccount = require("./fir-app-fb853-firebase-adminsdk-isfer-a3a7fec64f.json");
@@ -51,7 +51,7 @@ app.use(bodyParser());
 
 
 // Get a reference to the database service
-var database = firebase.database();
+// var database = firebase.database();
 // var firebase = require('firebase');
 // var firebaseui = require('firebaseui');
 
